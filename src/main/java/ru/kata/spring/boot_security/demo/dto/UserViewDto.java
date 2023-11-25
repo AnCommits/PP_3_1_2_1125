@@ -16,6 +16,7 @@ public class UserViewDto {
     private long id;
     private String firstName;
     private String lastName;
+    private String position;
     private String email;
     private String password;
 
@@ -25,8 +26,8 @@ public class UserViewDto {
     @Temporal(TemporalType.TIMESTAMP)
     private Date recordDateTime;
 
-    private String firstPosition;
-    private List<String> otherPositions;
+//    private String firstPosition;
+//    private List<String> otherPositions;
 
     private String firstRole;
     private List<String> otherRoles;
@@ -37,17 +38,17 @@ public class UserViewDto {
 
     public String recordDateTimeAsString;
 
-    // todo delete
-
-    @Override
-    public String toString() {
-        return "User{" + id + ' ' + firstName + ' ' + lastName + ' ' + email + '}';
-    }
-
-    // todo delete
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(email);
-    }
+//    // todo delete
+//
+//    @Override
+//    public String toString() {
+//        return "User{" + id + ' ' + firstName + ' ' + lastName + ' ' + email + '}';
+//    }
+//
+//    // todo delete
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(email);
+//    }
 }

@@ -29,7 +29,6 @@ public class AdminControllers {
     @GetMapping
     public String showAllUsers(ModelMap model) {
         List<User> users = userService.getAllUsers();
-        users.forEach(u -> u.setRolesForViews(new RolesForView(u.getRolesNames())));
         model.addAttribute("users", users);
         model.addAttribute("userSave", new User());
         return "admin";

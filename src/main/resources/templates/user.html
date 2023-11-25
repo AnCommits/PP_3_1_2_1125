@@ -6,6 +6,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="/style.css">
     <title>User page</title>
+
+    <style>
+        .cell {vertical-align: top; padding: 2px 4px;}
+    </style>
 </head>
 <body>
 <header th:fragment="user_header" xmlns:sec="http://www.w3.org/1999/xhtml">
@@ -29,44 +33,45 @@
     <table style="border: 0; margin: auto">
         <thead>
         <tr>
-            <th style="border-bottom: 1px solid; padding: 4px">
+            <th class="cell">
                 Имя
             </th>
-            <th style="border-bottom: 1px solid; padding: 4px">
+            <th class="cell">
                 Фамилия
             </th>
-            <th style="border-bottom: 1px solid; padding: 4px">
-                Е-мэйл
-            </th>
-            <th style="border-bottom: 1px solid; padding: 4px">
+            <th class="cell">
                 Должность
             </th>
-            <th style="border-bottom: 1px solid; padding: 4px">
+            <th class="cell">
+                Е-мэйл
+            </th>
+            <th class="cell">
                 Роли
             </th>
-            <th style="border-bottom: 1px solid; padding: 4px">
+            <th class="cell">
                 Дата рожд.
             </th>
-            <th style="border-bottom: 1px solid; padding: 4px">
+            <th class="cell">
                 Дата, время записи
             </th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td style="vertical-align: top" th:text="${user.firstName}"></td>
-            <td style="vertical-align: top" th:text="${user.lastName}"></td>
-            <td style="vertical-align: top" th:text="${user.email}"></td>
-            <td style="vertical-align: top" th:with="roles=${user.rolesForViews}">
+            <td class="cell" th:text="${user.firstName}"></td>
+            <td class="cell" th:text="${user.lastName}"></td>
+            <td class="cell" th:text="${user.position}"></td>
+            <td class="cell" th:text="${user.email}"></td>
+            <td class="cell">
                 <details>
-                    <summary th:text="${roles.firstRole}"></summary>
-                    <span th:each="line : ${roles.otherRoles}">
+                    <summary th:text="${user.firstRole}"></summary>
+                    <span th:each="line : ${user.otherRoles}">
                         <div th:text="'&nbsp;&nbsp;&nbsp;&nbsp;' + ${line}"></div>
                     </span>
                 </details>
             </td>
-            <td style="vertical-align: top; text-align: center" th:text="${user.birthDateToString()}"></td>
-            <td style="vertical-align: top; text-align: center" th:text="${user.recordDateTimeToString()}"></td>
+            <td class="cell" th:text="${user.birthDateAsString}"></td>
+            <td class="cell" th:text="${user.recordDateTimeAsString}"></td>
         </tr>
         </tbody>
     </table>

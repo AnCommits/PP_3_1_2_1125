@@ -2,13 +2,15 @@ package ru.kata.spring.boot_security.demo.init;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.models.Position;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 @Component
 public class InitDataBase {
@@ -54,9 +56,9 @@ public class InitDataBase {
         roles.add(new Role("ADMIN"));
         roles.add(new Role("USER"));
 
-        User user = new User(null, null,
+        User user = new User(null, null, "",
                 "1", passwordEncoder.encode("1"),
-                null, roles, null, false);
+                null, roles, false);
         userService.saveUser(user);
     }
 
@@ -64,12 +66,9 @@ public class InitDataBase {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("ученик"));
-
-        User user = new User("Антон", "Антонов",
+        User user = new User("Антон", "Антонов", "ученик",
                 "a", passwordEncoder.encode("a"),
-                null, roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1), roles, false);
         userService.saveUser(user);
     }
 
@@ -77,13 +76,10 @@ public class InitDataBase {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("ремонтник"));
-
-        User user = new User("Борис", "Борисов",
+        User user = new User("Борис", "Борисов", "ремонтник",
                 "b", passwordEncoder.encode("b"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -91,13 +87,10 @@ public class InitDataBase {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("ремонтник"));
-
-        User user = new User("Вася", "Васильев",
+        User user = new User("Вася", "Васильев", "ремонтник",
                 "v", passwordEncoder.encode("v"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -105,13 +98,10 @@ public class InitDataBase {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("сборщик(ТВ)"));
-
-        User user = new User("Григорий", "Григорьев",
+        User user = new User("Григорий", "Григорьев", "сборщик ТВ",
                 "g", passwordEncoder.encode("g"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -119,13 +109,10 @@ public class InitDataBase {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("настройщик(ТВ)"));
-
-        User user = new User("Дима", "Дмитриев",
+        User user = new User("Дима", "Дмитриев", "сборщик ТВ",
                 "d", passwordEncoder.encode("d"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -133,13 +120,10 @@ public class InitDataBase {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("сборщик(тел)"));
-
-        User user = new User("Егор", "Егоров",
+        User user = new User("Егор", "Егоров", "сборщик тел",
                 "e", passwordEncoder.encode("e"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -147,13 +131,10 @@ public class InitDataBase {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("настройщик(тел)"));
-
-        User user = new User("Зина", "Зиновьева",
+        User user = new User("Зина", "Зиновьева", "сборщик тел",
                 "z", passwordEncoder.encode("z"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -162,13 +143,10 @@ public class InitDataBase {
         roles.add(new Role("TV_MANUFACTURE_MASTER"));
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("нач отд произв ТВ"));
-
-        User user = new User("Кирилл", "Кириллов",
+        User user = new User("Кирилл", "Кириллов", "нач отд произв ТВ",
                 "k", passwordEncoder.encode("k"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -177,13 +155,10 @@ public class InitDataBase {
         roles.add(new Role("PHONE_MANUFACTURE_MASTER"));
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("нач отд произв тел"));
-
-        User user = new User("Миша", "Михайлов",
+        User user = new User("Миша", "Михайлов", "нач отд произв тел",
                 "m", passwordEncoder.encode("m"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -192,13 +167,10 @@ public class InitDataBase {
         roles.add(new Role("REPAIR_MASTER"));
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("нач ремонт отдела"));
-
-        User user = new User("Петр", "Петров",
+        User user = new User("Петр", "Петров", "нач ремонт отдела",
                 "p", passwordEncoder.encode("p"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -208,13 +180,10 @@ public class InitDataBase {
         roles.add(new Role("PHONE_MANUFACTURE_MASTER"));
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("нач производства"));
-
-        User user = new User("Рома", "Романов",
+        User user = new User("Рома", "Романов", "нач производства",
                 "r", passwordEncoder.encode("r"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 
@@ -225,13 +194,10 @@ public class InitDataBase {
         roles.add(new Role("REPAIR_MASTER"));
         roles.add(new Role("USER"));
 
-        List<Position> positions = new ArrayList<>();
-        positions.add(new Position("глава фирмы"));
-
-        User user = new User("Степан", "Степанов",
+        User user = new User("Степан", "Степанов", "глава фирмы",
                 "s", passwordEncoder.encode("s"),
-                new GregorianCalendar(2000, Calendar.JANUARY, 01),
-                roles, positions, false);
+                new GregorianCalendar(2000, Calendar.JANUARY, 1),
+                roles, false);
         userService.saveUser(user);
     }
 }

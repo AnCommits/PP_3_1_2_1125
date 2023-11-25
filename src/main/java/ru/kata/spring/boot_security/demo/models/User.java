@@ -28,6 +28,8 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    private String position;
+
     /**
      * Used such as login
      */
@@ -51,29 +53,24 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(name = "user_position",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "position_id"))
-    private List<Position> positions;
 
-    @Transient
-    private RolesForView rolesForViews;
+//    @Transient
+//    private RolesForView rolesForViews;
 
-    @Transient
-    private PositionsForView positionsForViews;
+//    @Transient
+//    private PositionsForView positionsForViews;
 
     private boolean locked;
 
-    public User(String firstName, String lastName, String email, String password,
-                Calendar birthDate, List<Role> roles, List<Position> positions, boolean locked) {
+    public User(String firstName, String lastName, String position, String email, String password,
+                Calendar birthDate, List<Role> roles, boolean locked) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.position = position;
         this.email = email;
         this.password = password;
         this.birthDate = birthDate;
         this.roles = roles;
-        this.positions = positions;
         this.locked = locked;
     }
 
@@ -87,22 +84,24 @@ public class User implements UserDetails {
 
     // todo delete
 
-    public String getMainRole() {
-        Optional<Role> main = roles.stream().max(Role.roleComparator);
-        return main.isPresent() ? main.get().getName() : Role.allRolesTypes[0].name();
-    }
+//    public String getMainRole() {
+//        Optional<Role> main = roles.stream().max(Role.roleComparator);
+//        return main.isPresent() ? main.get().getName() : Role.allRolesTypes[0].name();
+//    }
 
-    public String birthDateToString() {
-        return birthDate != null
-                ? new SimpleDateFormat("yyyy-MM-dd").format(birthDate.getTime())
-                : "";
-    }
+    // todo delete
+//    public String birthDateToString() {
+//        return birthDate != null
+//                ? new SimpleDateFormat("yyyy-MM-dd").format(birthDate.getTime())
+//                : "";
+//    }
 
-    public String recordDateTimeToString() {
-        return recordDateTime != null
-                ? new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss").format(recordDateTime)
-                : "";
-    }
+    // todo delete
+//    public String recordDateTimeToString() {
+//        return recordDateTime != null
+//                ? new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss").format(recordDateTime)
+//                : "";
+//    }
 
     @Override
     public String toString() {
