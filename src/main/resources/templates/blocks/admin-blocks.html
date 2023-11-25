@@ -1,0 +1,172 @@
+<header th:fragment="admin_header">
+    <table style="width:100%; background-color: #e7fff3">
+        <tbody>
+        <tr>
+            <td style="text-align: center; font-weight: bold; font-size: larger; width: 100%; border: 1px solid">
+                <span sec:authorize="hasAuthority('SUPER_ADMIN')">
+                Страница главного администратора
+                </span>
+                <span sec:authorize="!hasAuthority('SUPER_ADMIN')">
+                Страница администратора
+                </span>
+            </td>
+            <td><a class="button" href="/">Главная</a></td>
+            <td><a class="button" href="user">Моя&nbsp;страница</a></td>
+            <td>
+                <a href="/logout" class="button">Выйти</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</header>
+<!--------------------------------------------------------------------------------->
+<table th:fragment="users_list" style="border: 0; margin: auto;">
+    <thead>
+    <tr>
+        <th style="border-bottom: 1px solid; padding: 4px">Имя</th>
+        <th style="border-bottom: 1px solid; padding: 4px">Фамилия</th>
+        <th style="border-bottom: 1px solid; padding: 4px">Е-мэйл</th>
+        <th style="border-bottom: 1px solid; padding: 4px">Роли</th>
+        <th style="border-bottom: 1px solid; padding: 4px">Дата рожд.</th>
+        <th style="border-bottom: 1px solid; padding: 4px">Дата, время записи</th>
+        <th style="border-bottom: 1px solid; padding: 4px">Заблокирован</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}"
+        th:with="st = 'border-bottom: 1px solid; color: ' + (${user.isLocked()} ? 'red' : 'black') +';'">
+        <td th:style="${st}" th:text="${user.firstName}"></td>
+        <td th:style="${st}" th:text="${user.lastName}"></td>
+        <td th:style="${st}" th:text="${user.email}"></td>
+        <td th:style="${st}">
+            <div th:with="roles=${user.rolesForViews}">
+                <details>
+                    <summary th:text="${roles.firstRole}"></summary>
+                    <span th:each="line : ${roles.otherRoles}">
+                        <div th:text="'&nbsp;&nbsp;&nbsp;&nbsp;' + ${line}"></div>
+                    </span>
+                </details>
+            </div>
+        </td>
+        <td th:style="${st} + ' text-align: center'"
+            th:text="${user.birthDate != null} ? ${user.birthDateToString()} : '-'"></td>
+        <td th:style="${st} + ' text-align: center'" th:text="${user.recordDateTimeToString()}"></td>
+        <td style="text-align: center">
+            <form th:action="'admin/change-ban/' + ${user.id}" th:method="put" th:switch="${user.isLocked()}">
+                <input th:case="true" type="checkbox" class="checkbox" onclick="submit()" checked>
+                <span th:case="false">
+                        <span sec:authorize="hasAuthority('SUPER_ADMIN')">
+                            <span th:switch="${user.hasRole('SUPER_ADMIN')}">
+                                <input th:case="true" type="checkbox" disabled="disabled">
+                                <input th:case="false" type="checkbox" class="checkbox" onclick="submit()">
+                            </span>
+                        </span>
+                        <span sec:authorize="!hasAuthority('SUPER_ADMIN')">
+                            <span th:switch="${user.hasRole('ADMIN')} OR ${user.hasRole('SUPER_ADMIN')}">
+                                <input th:case="true" type="checkbox" disabled="disabled">
+                                <input th:case="false" type="checkbox" class="checkbox" onclick="submit()">
+                            </span>
+                        </span>
+                    </span>
+            </form>
+        </td>
+        <td style="border: 0; padding: 0 2px; text-align: center">
+            <span sec:authorize="hasAuthority('SUPER_ADMIN')">
+                <span th:switch="${user.hasRole('SUPER_ADMIN')}">
+                    <a th:attr="href='#'" class="button" style="pointer-events: none"
+                       th:case="true">Редактировать</a>
+                    <a th:attr="href='/admin/show-edit-user?id=' + ${user.id}" class="button"
+                       th:case="false">Редактировать</a>
+                </span>
+            </span>
+            <span sec:authorize="!hasAuthority('SUPER_ADMIN')">
+                    <span th:switch="${user.hasRole('ADMIN')} OR ${user.hasRole('SUPER_ADMIN')}">
+                    <a th:attr="href='#'" class="button" style="pointer-events: none"
+                       th:case="true">Редактировать</a>
+                    <a th:attr="href='/admin/show-edit-user?id=' + ${user.id}" class="button"
+                       th:case="false">Редактировать</a>
+                    </span>
+                </span>
+        </td>
+        <td style="border: 0; padding: 0 2px; text-align: center">
+            <form th:action="'admin/remove-user/' + ${user.id}" th:method="delete">
+                <span sec:authorize="hasAuthority('SUPER_ADMIN')">
+                    <span th:switch="${user.hasRole('SUPER_ADMIN')}">
+                        <button type="submit" disabled="disabled" th:case="true">Удалить</button>
+                        <button type="submit" class="button" th:case="false">Удалить</button>
+                    </span>
+                </span>
+                <span sec:authorize="!hasAuthority('SUPER_ADMIN')">
+                    <span th:switch="${user.hasRole('ADMIN')} OR ${user.hasRole('SUPER_ADMIN')}">
+                        <button type="submit" disabled="disabled" th:case="true">Удалить</button>
+                        <button type="submit" class="button" th:case="false">Удалить</button>
+                    </span>
+                </span>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--------------------------------------------------------------------------------->
+<!--<table th:fragment="edit_user_table" style="margin: auto">-->
+<!--    <tbody>-->
+<!--    <tr>-->
+<!--        <td>-->
+<!--            <table style="margin: auto; padding-top: 16px">-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <td colspan="3" style="color: red; text-align: center"-->
+<!--                        th:text="${message}">-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td style="padding: 0 5px; text-align: center"><label for="first_name">Имя</label></td>-->
+<!--                    <td style="padding: 0 5px; text-align: center"><label for="last_name">Фамилия</label></td>-->
+<!--                    <td style="padding: 0 5px; text-align: center"><label for="email">Е-мэйл*</label></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><input id="first_name" type="text" size="15" th:field="${user.firstName}"></td>-->
+<!--                    <td><input id="last_name" type="text" size="20" th:field="${user.lastName}"></td>-->
+<!--                    <td><input id="email" type="text" size="25" required th:field="${user.email}"></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--            <table style="margin: auto; padding-top: 4px">-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <td style="margin: 0 10px; text-align: center">Пароль*</td>-->
+<!--                    <td rowspan="4" style="width: 8px"></td>-->
+<!--                    <td>Роли</td>-->
+<!--                    <td rowspan="4" style="width: 8px"></td>-->
+<!--                    <td>Дата рождения</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><input type="password" minlength="2" size="24" required-->
+<!--                               th:field="${user.password}"></td>-->
+<!--                    <td rowspan="3" style="vertical-align: top">-->
+<!--                        <div th:each="role : ${aRoles}">-->
+<!--                            <input type="checkbox" name="roles"-->
+<!--                                   th:text="${role.name}"-->
+<!--                                   th:value="${role.name}"-->
+<!--                                   th:field="*{roles}">-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                    <td rowspan="3" style="vertical-align: top">-->
+<!--                        <input type="date" th:field="${user.birthDate}"></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>Пароль еще раз*</td>-->
+<!--                    <td></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><input type="password" size="24" disabled="disabled"></td>-->
+<!--                    <td></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
