@@ -35,6 +35,7 @@ public class UserControllers {
         // After user changes his/her email the email in authentication
         // is not the same as the email in DB
         User user = userService.getUserById(id);
+//        user.setPositionsForViews(new PositionsForView(user.getPositionsNames()));
         user.setRolesForViews(new RolesForView(user.getRolesNames()));
         model.addAttribute("title", "Моя страница");
         model.addAttribute("user", user);
