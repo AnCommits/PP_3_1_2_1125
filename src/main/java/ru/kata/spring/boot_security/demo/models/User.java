@@ -74,9 +74,9 @@ public class User implements UserDetails {
         this.locked = locked;
     }
 
-    public boolean hasRole(String role) {
-        return roles.stream().anyMatch(r -> r.getName().equals(role));
-    }
+//    public boolean hasRole(String role) {
+//        return roles.stream().anyMatch(r -> r.getName().equals(role));
+//    }
 
     public List<String> getRolesNames() {
         return roles.stream().map(Role::getName).toList();

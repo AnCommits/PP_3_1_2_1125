@@ -4,7 +4,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.dto.UserViewDto;
 import ru.kata.spring.boot_security.demo.helper.RolesForView;
+import ru.kata.spring.boot_security.demo.mapper.UserMapper;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -29,7 +31,8 @@ public class AdminControllers {
     @GetMapping
     public String showAllUsers(ModelMap model) {
         List<User> users = userService.getAllUsers();
-        model.addAttribute("users", users);
+        List<UserViewDto> userViewDtos = users.stream().map(UserMapper::toUserViewDto).toList();
+        model.addAttribute("users", userViewDtos);
         model.addAttribute("userSave", new User());
         return "admin";
     }
