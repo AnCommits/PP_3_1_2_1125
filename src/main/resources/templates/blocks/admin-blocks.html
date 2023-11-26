@@ -1,5 +1,5 @@
 <header th:fragment="admin_header">
-    <table style="width:100%; background-color: #e7fff3">
+    <table style="width:100%; background-color: #e7fff3; margin-bottom: 12px">
         <tbody>
         <tr>
             <td style="text-align: center; font-weight: bold; font-size: larger; width: 100%; border: 1px solid">
@@ -20,7 +20,7 @@
     </table>
 </header>
 <!--------------------------------------------------------------------------------->
-<table th:fragment="users_list" style="border: 0; margin: auto;">
+<table th:fragment="users_list" style="margin: auto">
     <thead>
     <tr>
         <th style="border-bottom: 1px solid; padding: 4px">Имя</th>
@@ -51,10 +51,10 @@
                     </span>
             </details>
         </td>
-        <td th:text="${user.birthDate != null} ? ${user.getBirthDateAsString()} : '-'"></td>
         <td th:style="${st} + ' text-align: center'"
-            th:text="${user.recordDateTimeAsString}"></td>
-        <td style="text-align: center">
+            th:text="${user.birthDate != null} ? ${user.getBirthDateAsString()} : '-'"></td>
+        <td th:style="${st} + ' text-align: center'" th:text="${user.recordDateTimeAsString}"></td>
+        <td th:style="${st} + ' text-align: center'">
             <form th:action="'admin/change-ban/' + ${user.id}" th:method="put" th:switch="${user.isLocked()}">
                 <input th:case="true" type="checkbox" class="checkbox" onclick="submit()" checked>
                 <span th:case="false">
