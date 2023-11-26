@@ -26,14 +26,16 @@ public class UserViewFieldsSetter {
         user.setOtherRoles(user.getRoles().isEmpty()
                 ? new ArrayList<>()
                 : user.getRoles().stream().skip(1).map(Role::getName).toList());
-        user.setAdmin(user.getRoles().stream().anyMatch(r -> r.getName().equals("ADMIN")));
+        setAdminField(user);
     }
 
+    public static void setAdminField(User user) {
+        user.setAdmin(user.getRoles().stream().anyMatch(r -> r.getName().equals("ADMIN")));
+    }
     // ?
     // user.setAdmin
 
     public static List<Role> allRolesWithoutAdmin() {
-//        List<Role> allRoles = new ArrayList<>();
         return Arrays.stream(RolesType.values())
                 .filter(r -> !r.name().equals("ADMIN"))
                 .map(r -> new Role(r.name())).toList();

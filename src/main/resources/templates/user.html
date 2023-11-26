@@ -19,7 +19,7 @@
                 th:text="${title}">
             </td>
             <td><a class="button" href="/">Главная</a></td>
-            <td sec:authorize="hasAnyAuthority('ADMIN')">
+            <td sec:authorize="hasAuthority('ADMIN')">
                 <a href="/admin" class="button">Страница&nbsp;администратора</a>
             </td>
             <td><a href="/logout" class="button">Выйти</a></td>
@@ -36,7 +36,7 @@
             <th class="cell">Фамилия</th>
             <th class="cell">Должность</th>
             <th class="cell">Е-мэйл</th>
-            <th class="cell" width="260px">Роли</th>
+            <th class="cell" style="width: 260px">Роли</th>
             <th class="cell">Дата рождения</th>
             <th class="cell">Дата, время записи</th>
         </tr>

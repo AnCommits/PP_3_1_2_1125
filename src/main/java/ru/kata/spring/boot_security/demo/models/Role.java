@@ -24,52 +24,22 @@ public class Role implements GrantedAuthority {
     @ManyToMany(mappedBy = "roles")
     private Set<User> user;
 
-//    @Transient
-//    public final static RolesType[] allRolesTypes = RolesType.values();
-
-//    @Transient
-//    private final static List<Role> allRoles = new ArrayList<>();
-
-//    static {
-//        Arrays.stream(allRolesTypes).map(r -> new Role(r.name())).forEach(allRoles::add);
-//    }
-
-//    public static List<Role> allRoles() {
-//        return allRoles;
-//    }
-
     public Role(String name) {
         setName(name);
     }
 
     public void setName(String name) {
         String nameInUpperCase = name.toUpperCase();
-//        List<String> allRolesNames = RolesType.allRolesNames();
         List<String> allRolesNames = Arrays.stream(RolesType.values()).map(Enum::name).toList();
-        this.name = allRolesNames.contains(nameInUpperCase) ? nameInUpperCase : allRolesNames.get(0);
+        this.name = allRolesNames.contains(nameInUpperCase)
+                ? nameInUpperCase
+                : allRolesNames.get(allRolesNames.size() - 1);
     }
 
     @Override
     public String getAuthority() {
         return name;
     }
-
-//    public static List<String> listOfAllRoles() {
-//        return Arrays.stream(allRolesTypes).map(Enum::name).toList();
-//    }
-
-    // todo delete
-
-//    public static List<Role> getListOfRoles(int numberOfRoles) {
-//        List<Role> roles = new ArrayList<>();
-//        IntStream.range(0, numberOfRoles).mapToObj(n -> new Role(allRolesTypes[n].name())).forEach(roles::add);
-//        return roles;
-//    }
-
-    // todo delete
-
-//    public static Comparator<Role> roleComparator =
-//            Comparator.comparingInt(r -> RolesType.valueOf(r.getName()).ordinal());
 
     @Override
     public boolean equals(Object o) {

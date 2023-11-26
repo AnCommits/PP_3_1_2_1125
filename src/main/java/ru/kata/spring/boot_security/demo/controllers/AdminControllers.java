@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.helper.UserViewFieldsSetter;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -35,6 +36,7 @@ public class AdminControllers {
     @GetMapping("/show-edit-user")
     public String showEditUser(@RequestParam long id, ModelMap model) {
         User user = userService.getUserById(id);
+        UserViewFieldsSetter.setAdminField(user);
         model.addAttribute("aRoles", UserViewFieldsSetter.allRolesWithoutAdmin());
         model.addAttribute("user", user);
         model.addAttribute("title", "Страница администратора");
@@ -72,7 +74,11 @@ public class AdminControllers {
             userRepeatEdit = user;
             return "redirect:/admin/show-repeat-edit-user";
         }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.isAdmin()) {
+            user.getRoles().add(0, new Role("ADMIN"));
+        }
         userService.updateUser(user);
         userRepeatEdit = null;
         return "redirect:/admin";
