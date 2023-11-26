@@ -30,7 +30,7 @@ public class AdminControllers {
         List<User> users = userService.getAllUsers();
         UserUtils.setViewFields(users);
         model.addAttribute("users", users);
-        return "admin";
+        return "admin/admin";
     }
 
     @GetMapping("/show-edit-user")
@@ -41,7 +41,7 @@ public class AdminControllers {
         model.addAttribute("user", user);
         model.addAttribute("title", "Страница администратора");
         model.addAttribute("title2", "Редактирование пользователя");
-        return "admin-edit";
+        return "admin/admin-edit";
     }
 
     @GetMapping("/show-repeat-edit-user")
@@ -51,7 +51,7 @@ public class AdminControllers {
         model.addAttribute("message", message.toString());
         model.addAttribute("title", "Страница администратора");
         model.addAttribute("title2", "Редактирование пользователя");
-        return "admin-edit";
+        return "admin/admin-edit";
     }
 
     @PutMapping("/save-user")
@@ -84,7 +84,7 @@ public class AdminControllers {
         model.addAttribute("user", new User());
         model.addAttribute("title", "Страница администратора");
         model.addAttribute("title2", "Новый пользователь");
-        return "admin-edit";
+        return "admin/admin-edit";
     }
 
     @PostMapping("/save-user")

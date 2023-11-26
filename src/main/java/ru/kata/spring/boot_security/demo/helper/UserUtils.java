@@ -16,14 +16,18 @@ public class UserUtils {
     }
 
     public static void setAllAdditionalFields(User user) {
+        setDatesFields(user);
+        setRoleFields(user);
+        setAdminField(user);
+    }
+
+    public static void setDatesFields(User user) {
         user.setBirthDateAsString(user.getBirthDate() != null
                 ? new SimpleDateFormat("yyyy-MM-dd").format(user.getBirthDate().getTime())
                 : "");
         user.setRecordDateTimeAsString(user.getRecordDateTime() != null
                 ? new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss").format(user.getRecordDateTime())
                 : "");
-        setRoleFields(user);
-        setAdminField(user);
     }
 
     public static void setRoleFields(User user) {
