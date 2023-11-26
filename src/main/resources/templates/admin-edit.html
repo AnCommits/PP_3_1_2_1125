@@ -52,16 +52,15 @@
                     <table style="margin: auto; padding-top: 4px">
                         <tbody>
                         <tr>
-                            <td style="margin: 0 10px; text-align: center">Пароль*</td>
-                            <td rowspan="4" style="width: 8px"></td>
-                            <td style="width: 280px; text-align: center">Роли</td>
-                            <td rowspan="4" style="width: 8px"></td>
                             <td>Дата рождения</td>
+                            <td style="text-align: center; width: 320px">Роли</td>
+                            <td style="text-align: center">Пароль*</td>
                         </tr>
                         <tr>
-                            <td><input type="password" minlength="2" size="24" required
-                                       th:field="${user.password}"></td>
-                            <td rowspan="3" style="vertical-align: top">
+                            <td style="vertical-align: top">
+                                <input type="date" th:field="${user.birthDate}">
+                            </td>
+                            <td style="vertical-align: top; padding: 0 20px">
                                 <div th:each="role : ${aRoles}">
                                     <input type="checkbox" name="roles"
                                            th:text="${role.name}"
@@ -70,16 +69,13 @@
                                 </div>
                                 <input type="checkbox" hidden="hidden" th:field="${user.admin}">
                             </td>
-                            <td rowspan="3" style="vertical-align: top">
-                                <input type="date" th:field="${user.birthDate}"></td>
-                        </tr>
-                        <tr>
-                            <td>Пароль еще раз*</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><input type="password" size="24" disabled="disabled"></td>
-                            <td></td>
+                            <td>
+                                <ul style="list-style-type: none">
+                                    <li><input type="password" minlength="2" size="24" required th:field="${user.password}"></li>
+                                    <li>Пароль еще раз*</li>
+                                    <li><input type="password" size="24" disabled="disabled"></li>
+                                </ul>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
