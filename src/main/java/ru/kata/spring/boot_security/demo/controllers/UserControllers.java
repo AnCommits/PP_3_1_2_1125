@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kata.spring.boot_security.demo.helper.UserViewFieldsSetter;
+import ru.kata.spring.boot_security.demo.helper.UserUtils;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -22,7 +22,7 @@ public class UserControllers {
     public String showUser(ModelMap model, Authentication authentication) {
         User loggedInUser = (User) authentication.getPrincipal();
         User updatedUser = userService.getUserById(loggedInUser.getId());
-        UserViewFieldsSetter.setViewFields(updatedUser);
+        UserUtils.setRoleFields(updatedUser);
         model.addAttribute("title", "Моя страница");
         model.addAttribute("user", updatedUser);
         return "user";

@@ -4,7 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.helper.UserViewFieldsSetter;
+import ru.kata.spring.boot_security.demo.helper.UserUtils;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -28,7 +28,7 @@ public class AdminControllers {
     @GetMapping
     public String showAllUsers(ModelMap model) {
         List<User> users = userService.getAllUsers();
-        UserViewFieldsSetter.setViewFields(users);
+        UserUtils.setViewFields(users);
         model.addAttribute("users", users);
         return "admin";
     }
@@ -36,8 +36,8 @@ public class AdminControllers {
     @GetMapping("/show-edit-user")
     public String showEditUser(@RequestParam long id, ModelMap model) {
         User user = userService.getUserById(id);
-        UserViewFieldsSetter.setAdminField(user);
-        model.addAttribute("aRoles", UserViewFieldsSetter.allRolesWithoutAdmin());
+        UserUtils.setAdminField(user);
+        model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
         model.addAttribute("user", user);
         model.addAttribute("title", "Страница администратора");
         model.addAttribute("title2", "Редактирование пользователя");
@@ -46,7 +46,7 @@ public class AdminControllers {
 
     @GetMapping("/show-repeat-edit-user")
     public String showRepeatEditUser(ModelMap model) {
-        model.addAttribute("aRoles", UserViewFieldsSetter.allRolesWithoutAdmin());
+        model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
         model.addAttribute("user", userRepeatEdit);
         model.addAttribute("message", message.toString());
         model.addAttribute("title", "Страница администратора");
@@ -86,7 +86,7 @@ public class AdminControllers {
 
     @GetMapping("/show-add-user")
     public String showAddUser(ModelMap model) {
-        model.addAttribute("aRoles", UserViewFieldsSetter.allRolesWithoutAdmin());
+        model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
         model.addAttribute("user", new User());
         model.addAttribute("title", "Страница администратора");
         model.addAttribute("title2", "Новый пользователь");

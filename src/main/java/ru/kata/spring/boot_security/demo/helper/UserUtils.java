@@ -9,31 +9,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserViewFieldsSetter {
+public class UserUtils {
 
     public static void setViewFields(List<User> users) {
-        users.forEach(UserViewFieldsSetter::setViewFields);
+        users.forEach(UserUtils::setAllAdditionalFields);
     }
 
-    public static void setViewFields(User user) {
+    public static void setAllAdditionalFields(User user) {
         user.setBirthDateAsString(user.getBirthDate() != null
                 ? new SimpleDateFormat("yyyy-MM-dd").format(user.getBirthDate().getTime())
                 : "");
         user.setRecordDateTimeAsString(user.getRecordDateTime() != null
                 ? new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss").format(user.getRecordDateTime())
                 : "");
+        setRoleFields(user);
+        setAdminField(user);
+    }
+
+    public static void setRoleFields(User user) {
         user.setFirstRole(user.getRoles().isEmpty() ? "-" : user.getRoles().get(0).getName());
         user.setOtherRoles(user.getRoles().isEmpty()
                 ? new ArrayList<>()
                 : user.getRoles().stream().skip(1).map(Role::getName).toList());
-        setAdminField(user);
     }
 
     public static void setAdminField(User user) {
         user.setAdmin(user.getRoles().stream().anyMatch(r -> r.getName().equals("ADMIN")));
     }
-    // ?
-    // user.setAdmin
 
     public static List<Role> allRolesWithoutAdmin() {
         return Arrays.stream(RolesType.values())

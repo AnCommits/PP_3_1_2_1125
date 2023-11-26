@@ -47,13 +47,10 @@
             <td class="cell" th:text="${user.lastName}"></td>
             <td class="cell" th:text="${user.position}"></td>
             <td class="cell" th:text="${user.email}"></td>
-            <td class="cell">
-                <details>
-                    <summary th:text="${user.firstRole}"></summary>
-                    <span th:each="line : ${user.otherRoles}">
-                        <div th:text="'&nbsp;&nbsp;&nbsp;&nbsp;' + ${line}"></div>
-                    </span>
-                </details>
+            <td class="cell" th:with="roles=${user.roles}">
+                <ul th:each="role : ${roles}" style="list-style: none; padding: 0; margin: 0">
+                    <li th:text="${role.name}"></li>
+                </ul>
             </td>
             <td class="cell" th:text="${user.birthDateAsString}"></td>
             <td class="cell" th:text="${user.recordDateTimeAsString}"></td>
