@@ -1,0 +1,17 @@
+<ul th:fragment="links_to_lists_of_employees" style="padding: 2px; margin: 2px">
+    <li sec:authorize="hasAuthority('MASTER') and hasAuthority('TV_MANUFACTURER') and hasAuthority('PHONE_MANUFACTURER') and hasAuthority('REPAIRER')">
+        <a href="/headship" class="button">Все сотрудники</a>
+    </li>
+    <li sec:authorize="hasAuthority('MASTER') and hasAuthority('TV_MANUFACTURER') and hasAuthority('PHONE_MANUFACTURER')">
+        <a href="/manufacture/master" class="button">Сотрудники сборочного цеха</a>
+    </li>
+    <li sec:authorize="hasAuthority('MASTER') and hasAuthority('TV_MANUFACTURER')">
+        <a href="/manufacture/tvs/master" class="button">Сотрудники отдела сборки ТВ</a>
+    </li>
+    <li sec:authorize="hasAuthority('MASTER') and hasAuthority('PHONE_MANUFACTURER')">
+        <a href="/manufacture/phones/master" class="button">Сотрудники отдела сборки телефонов</a>
+    </li>
+    <li sec:authorize="hasAuthority('MASTER') and hasAuthority('REPAIRER')">
+        <a href="/repair/master" class="button">Сотрудники ремонтного отдела</a>
+    </li>
+</ul>
