@@ -2,15 +2,14 @@ package ru.kata.spring.boot_security.demo.dto;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import ru.kata.spring.boot_security.demo.models.Role;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 @Data
-//@RequiredArgsConstructor
 public class UserViewDto {
     private long id;
     private String firstName;
@@ -26,6 +25,8 @@ public class UserViewDto {
     @Temporal(TemporalType.TIMESTAMP)
     private Date recordDateTime;
     private String recordDateTimeAsString;
+
+    private List<Role> roles;
 
     private String firstRole;
     private List<String> otherRoles;

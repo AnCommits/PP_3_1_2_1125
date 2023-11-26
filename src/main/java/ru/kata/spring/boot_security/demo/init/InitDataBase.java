@@ -120,7 +120,7 @@ public class InitDataBase {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
 
-        User user = new User("Егор", "Егоров", "сборщик тел",
+        User user = new User("Егор", "Егоров", "сборщик телефонов",
                 "e", passwordEncoder.encode("e"),
                 new GregorianCalendar(2000, Calendar.JANUARY, 1),
                 roles, false);
@@ -131,7 +131,7 @@ public class InitDataBase {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
 
-        User user = new User("Зина", "Зиновьева", "сборщик тел",
+        User user = new User("Зина", "Зиновьева", "сборщик телефонов",
                 "z", passwordEncoder.encode("z"),
                 new GregorianCalendar(2000, Calendar.JANUARY, 1),
                 roles, false);
@@ -180,7 +180,7 @@ public class InitDataBase {
         roles.add(new Role("PHONE_MANUFACTURE_MASTER"));
         roles.add(new Role("USER"));
 
-        User user = new User("Рома", "Романов", "нач сборочн цеха",
+        User user = new User("Рома", "Романов", "нач сборочного цеха",
                 "r", passwordEncoder.encode("r"),
                 new GregorianCalendar(2000, Calendar.JANUARY, 1),
                 roles, false);

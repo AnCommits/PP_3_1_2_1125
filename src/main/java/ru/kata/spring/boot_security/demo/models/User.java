@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.kata.spring.boot_security.demo.helper.PositionsForView;
-import ru.kata.spring.boot_security.demo.helper.RolesForView;
+//import ru.kata.spring.boot_security.demo.helper.PositionsForView;
+//import ru.kata.spring.boot_security.demo.helper.RolesForView;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -43,9 +43,18 @@ public class User implements UserDetails {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Calendar birthDate;
 
+    // for view
+    @Transient
+    private String birthDateAsString;
+
+    // for view
     @Column(name = "record_date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date recordDateTime;
+
+    // for view
+    @Transient
+    private String recordDateTimeAsString;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinTable(name = "user_role",
@@ -53,14 +62,19 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
+    // for view
+    @Transient
+    private String firstRole;
 
-//    @Transient
-//    private RolesForView rolesForViews;
-
-//    @Transient
-//    private PositionsForView positionsForViews;
+    // for view
+    @Transient
+    private List<String> otherRoles;
 
     private boolean locked;
+
+    // for view
+    @Transient
+    private boolean admin;
 
     public User(String firstName, String lastName, String position, String email, String password,
                 Calendar birthDate, List<Role> roles, boolean locked) {
@@ -78,9 +92,9 @@ public class User implements UserDetails {
 //        return roles.stream().anyMatch(r -> r.getName().equals(role));
 //    }
 
-    public List<String> getRolesNames() {
-        return roles.stream().map(Role::getName).toList();
-    }
+//    public List<String> getRolesNames() {
+//        return roles.stream().map(Role::getName).toList();
+//    }
 
     // todo delete
 

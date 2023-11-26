@@ -32,8 +32,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/user/**").hasAnyAuthority("USER")
-//                .antMatchers("/guest/sign-up").not().authenticated()
-                .antMatchers("/").permitAll();
+                .antMatchers("/manufacture/tvs/master/**")
+                    .access("hasAuthority('TV_MANUFACTURER') and hasAuthority('MASTER')")
+                .antMatchers("/manufacture/tvs/**").hasAuthority("TV_MANUFACTURER")
+                .antMatchers("/manufacture/phones/master/**")
+                    .access("hasAuthority('PHONE_MANUFACTURER') and hasAuthority('MASTER')")
+                .antMatchers("/manufacture/phones/**").hasAuthority("PHONE_MANUFACTURER")
+                .antMatchers("/repair/master/**")
+                    .access("hasAuthority('REPAIRER') and hasAuthority('MASTER')")
+                .antMatchers("/repair/**").hasAuthority("REPAIRER")
+                .antMatchers("/**").permitAll();
         http
                 .formLogin().loginPage("/login").permitAll()
                 .successHandler(successUserHandler);

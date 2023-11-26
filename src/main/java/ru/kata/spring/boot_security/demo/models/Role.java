@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.models;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import ru.kata.spring.boot_security.demo.constants.RolesType;
 
 import javax.persistence.*;
 import java.util.*;
@@ -23,19 +24,19 @@ public class Role implements GrantedAuthority {
     @ManyToMany(mappedBy = "roles")
     private Set<User> user;
 
-    @Transient
-    public final static RolesType[] allRolesTypes = RolesType.values();
+//    @Transient
+//    public final static RolesType[] allRolesTypes = RolesType.values();
 
-    @Transient
-    private final static List<Role> allRoles = new ArrayList<>();
+//    @Transient
+//    private final static List<Role> allRoles = new ArrayList<>();
 
-    static {
-        Arrays.stream(allRolesTypes).map(r -> new Role(r.name())).forEach(allRoles::add);
-    }
+//    static {
+//        Arrays.stream(allRolesTypes).map(r -> new Role(r.name())).forEach(allRoles::add);
+//    }
 
-    public static List<Role> allRoles() {
-        return allRoles;
-    }
+//    public static List<Role> allRoles() {
+//        return allRoles;
+//    }
 
     public Role(String name) {
         setName(name);
@@ -43,26 +44,13 @@ public class Role implements GrantedAuthority {
 
     public void setName(String name) {
         String nameInUpperCase = name.toUpperCase();
-        boolean correctName = Arrays.stream((allRolesTypes))
-                .anyMatch(r -> r.name().equals(nameInUpperCase));
-        this.name = correctName ? nameInUpperCase : allRolesTypes[0].name();
+        List<String> allRolesNames = RolesType.allRolesNames();
+        this.name = allRolesNames.contains(nameInUpperCase) ? nameInUpperCase : allRolesNames.get(0);
     }
 
     @Override
     public String getAuthority() {
         return name;
-    }
-
-    /**
-     * Roles preferably start with minimum privileges
-     * since if the role is specified incorrectly the first one is installed.
-     */
-    public enum RolesType {
-        USER,
-        TV_MANUFACTURE_MASTER,
-        PHONE_MANUFACTURE_MASTER,
-        REPAIR_MASTER,
-        ADMIN
     }
 
 //    public static List<String> listOfAllRoles() {
@@ -71,16 +59,16 @@ public class Role implements GrantedAuthority {
 
     // todo delete
 
-    public static List<Role> getListOfRoles(int numberOfRoles) {
-        List<Role> roles = new ArrayList<>();
-        IntStream.range(0, numberOfRoles).mapToObj(n -> new Role(allRolesTypes[n].name())).forEach(roles::add);
-        return roles;
-    }
+//    public static List<Role> getListOfRoles(int numberOfRoles) {
+//        List<Role> roles = new ArrayList<>();
+//        IntStream.range(0, numberOfRoles).mapToObj(n -> new Role(allRolesTypes[n].name())).forEach(roles::add);
+//        return roles;
+//    }
 
     // todo delete
 
-    public static Comparator<Role> roleComparator =
-            Comparator.comparingInt(r -> RolesType.valueOf(r.getName()).ordinal());
+//    public static Comparator<Role> roleComparator =
+//            Comparator.comparingInt(r -> RolesType.valueOf(r.getName()).ordinal());
 
     @Override
     public boolean equals(Object o) {

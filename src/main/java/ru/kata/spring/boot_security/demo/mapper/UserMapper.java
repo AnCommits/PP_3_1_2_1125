@@ -1,11 +1,14 @@
 package ru.kata.spring.boot_security.demo.mapper;
 
+import ru.kata.spring.boot_security.demo.constants.RolesType;
 import ru.kata.spring.boot_security.demo.dto.UserViewDto;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class UserMapper {
 
@@ -28,6 +31,15 @@ public class UserMapper {
         userViewDto.setRecordDateTimeAsString(user.getRecordDateTime() != null
                 ? new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss").format(user.getRecordDateTime())
                 : "");
+
+
+//        List<Role> roles = new ArrayList<>();
+
+//        IntStream.range(0, 4).mapToObj(n -> new Role(RolesType.values()[n].name())).forEach(roles::add);
+
+//        List<String> roles = new ArrayList<>(RolesType.allRolesNames());
+//        roles.remove(new Role("ADMIN"));
+        userViewDto.setRoles(user.getRoles());
 
         if (user.getRoles().isEmpty()) {
             userViewDto.setFirstRole("-");
