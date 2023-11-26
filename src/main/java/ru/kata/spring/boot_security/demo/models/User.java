@@ -47,7 +47,6 @@ public class User implements UserDetails {
     @Transient
     private String birthDateAsString;
 
-    // for view
     @Column(name = "record_date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date recordDateTime;

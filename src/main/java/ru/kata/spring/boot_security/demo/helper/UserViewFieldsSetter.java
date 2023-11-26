@@ -1,10 +1,12 @@
 package ru.kata.spring.boot_security.demo.helper;
 
+import ru.kata.spring.boot_security.demo.constants.RolesType;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserViewFieldsSetter {
@@ -25,5 +27,15 @@ public class UserViewFieldsSetter {
                 ? new ArrayList<>()
                 : user.getRoles().stream().skip(1).map(Role::getName).toList());
         user.setAdmin(user.getRoles().stream().anyMatch(r -> r.getName().equals("ADMIN")));
+    }
+
+    // ?
+    // user.setAdmin
+
+    public static List<Role> allRolesWithoutAdmin() {
+//        List<Role> allRoles = new ArrayList<>();
+        return Arrays.stream(RolesType.values())
+                .filter(r -> !r.name().equals("ADMIN"))
+                .map(r -> new Role(r.name())).toList();
     }
 }

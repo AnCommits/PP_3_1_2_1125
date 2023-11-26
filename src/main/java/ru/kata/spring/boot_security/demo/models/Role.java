@@ -44,7 +44,8 @@ public class Role implements GrantedAuthority {
 
     public void setName(String name) {
         String nameInUpperCase = name.toUpperCase();
-        List<String> allRolesNames = RolesType.allRolesNames();
+//        List<String> allRolesNames = RolesType.allRolesNames();
+        List<String> allRolesNames = Arrays.stream(RolesType.values()).map(Enum::name).toList();
         this.name = allRolesNames.contains(nameInUpperCase) ? nameInUpperCase : allRolesNames.get(0);
     }
 

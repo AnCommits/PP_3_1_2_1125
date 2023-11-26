@@ -8,22 +8,24 @@ import java.util.List;
  * since if the role is specified incorrectly the first one will be installed.
  */
 public enum RolesType {
-    USER("пользователь"),
-    TV_MANUFACTURE_MASTER("сборщик ТВ"),
-    PHONE_MANUFACTURE_MASTER("сборщик телеф"),
-    REPAIR_MASTER("ремонтник"),
-    ADMIN("администратор");
+    USER,
+    REPAIRER,
+    PHONE_MANUFACTURER,
+    TV_MANUFACTURER,
+    MASTER,
+    ADMIN;
 
-    public final static List<RolesType> allRolesTypes = Arrays.stream(RolesType.values()).toList();
 
-    private String name;
+//    private final static List<RolesType> allRolesTypes = Arrays.stream(RolesType.values()).toList();
 
-    RolesType(String name) {
-        this.name = name;
-    }
+//    private String name;
 
-    public static List<String> allRolesNames() {
-        return allRolesTypes.stream().map(Enum::name).toList();
-    }
+//    RolesType(String name) {
+//        this.name = name;
+//    }
+
+//    public static List<String> allRolesNames() {
+//        return Arrays.stream(RolesType.values()).map(Enum::name).toList();
+//    }
 
 }

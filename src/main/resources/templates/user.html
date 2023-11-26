@@ -7,11 +7,11 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
     <title>User page</title>
     <style>
-        .cell {vertical-align: top; padding: 2px 4px;}
+        .cell {vertical-align: top; padding: 2px 4px; text-align: center;}
     </style>
 </head>
 <body>
-<header th:fragment="user_header" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header>
     <table style="width:100%; background-color: #e7fff3">
         <tbody>
         <tr>
@@ -32,27 +32,13 @@
     <table style="border: 0; margin: auto">
         <thead>
         <tr>
-            <th class="cell">
-                Имя
-            </th>
-            <th class="cell">
-                Фамилия
-            </th>
-            <th class="cell">
-                Должность
-            </th>
-            <th class="cell">
-                Е-мэйл
-            </th>
-            <th class="cell">
-                Роли
-            </th>
-            <th class="cell">
-                Дата рожд.
-            </th>
-            <th class="cell">
-                Дата, время записи
-            </th>
+            <th class="cell">Имя</th>
+            <th class="cell">Фамилия</th>
+            <th class="cell">Должность</th>
+            <th class="cell">Е-мэйл</th>
+            <th class="cell" width="260px">Роли</th>
+            <th class="cell">Дата рождения</th>
+            <th class="cell">Дата, время записи</th>
         </tr>
         </thead>
         <tbody>

@@ -74,6 +74,7 @@ public class InitDataBase {
 
     public void initRepairer1() {
         List<Role> roles = new ArrayList<>();
+        roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
 
         User user = new User("Борис", "Борисов", "ремонтник",
@@ -85,6 +86,7 @@ public class InitDataBase {
 
     public void initRepairer2() {
         List<Role> roles = new ArrayList<>();
+        roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
 
         User user = new User("Вася", "Васильев", "ремонтник",
@@ -96,6 +98,7 @@ public class InitDataBase {
 
     public void initTvManufacturer1() {
         List<Role> roles = new ArrayList<>();
+        roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("USER"));
 
         User user = new User("Григорий", "Григорьев", "сборщик ТВ",
@@ -107,6 +110,7 @@ public class InitDataBase {
 
     public void initTvManufacturer2() {
         List<Role> roles = new ArrayList<>();
+        roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("USER"));
 
         User user = new User("Дима", "Дмитриев", "сборщик ТВ",
@@ -118,6 +122,7 @@ public class InitDataBase {
 
     public void initPhoneManufacturer1() {
         List<Role> roles = new ArrayList<>();
+        roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
 
         User user = new User("Егор", "Егоров", "сборщик телефонов",
@@ -129,6 +134,7 @@ public class InitDataBase {
 
     public void initPhoneManufacturer2() {
         List<Role> roles = new ArrayList<>();
+        roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
 
         User user = new User("Зина", "Зиновьева", "сборщик телефонов",
@@ -140,7 +146,8 @@ public class InitDataBase {
 
     public void initTvManufactureMaster() {
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role("TV_MANUFACTURE_MASTER"));
+        roles.add(new Role("MASTER"));
+        roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("USER"));
 
         User user = new User("Кирилл", "Кириллов", "нач отд сборки ТВ",
@@ -152,7 +159,8 @@ public class InitDataBase {
 
     public void initPhoneManufactureMaster() {
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role("PHONE_MANUFACTURE_MASTER"));
+        roles.add(new Role("MASTER"));
+        roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
 
         User user = new User("Миша", "Михайлов", "нач отд сборки тел",
@@ -164,7 +172,8 @@ public class InitDataBase {
 
     public void initRepairMaster() {
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role("REPAIR_MASTER"));
+        roles.add(new Role("MASTER"));
+        roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
 
         User user = new User("Петр", "Петров", "нач ремонт отдела",
@@ -176,8 +185,9 @@ public class InitDataBase {
 
     public void initManufactureBoss() {
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role("TV_MANUFACTURE_MASTER"));
-        roles.add(new Role("PHONE_MANUFACTURE_MASTER"));
+        roles.add(new Role("MASTER"));
+        roles.add(new Role("TV_MANUFACTURER"));
+        roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
 
         User user = new User("Рома", "Романов", "нач сборочного цеха",
@@ -189,9 +199,10 @@ public class InitDataBase {
 
     public void initHead() {
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role("TV_MANUFACTURE_MASTER"));
-        roles.add(new Role("PHONE_MANUFACTURE_MASTER"));
-        roles.add(new Role("REPAIR_MASTER"));
+        roles.add(new Role("MASTER"));
+        roles.add(new Role("TV_MANUFACTURER"));
+        roles.add(new Role("PHONE_MANUFACTURER"));
+        roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
 
         User user = new User("Степан", "Степанов", "глава фирмы",
