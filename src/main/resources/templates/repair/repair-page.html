@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <title>Ремонтный отдел</title>
 </head>
 <body>
-Сплетни ремонтного отдела
+<header th:replace="~{fragments :: users_header}"></header>
+<main>
+    <h2>Сплетни ремонтного отдела</h2>
+</main>
 </body>
 </html>

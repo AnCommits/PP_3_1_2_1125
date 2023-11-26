@@ -11,22 +11,8 @@
     </style>
 </head>
 <body>
-<header>
-    <table style="width:100%; background-color: #e7fff3">
-        <tbody>
-        <tr>
-            <td style="text-align: center; font-weight: bold; font-size: larger; width: 100%; border: 1px solid"
-                th:text="${title}">
-            </td>
-            <td><a class="button" href="/">Главная</a></td>
-            <td sec:authorize="hasAuthority('ADMIN')">
-                <a href="/admin" class="button">Страница&nbsp;администратора</a>
-            </td>
-            <td><a href="/logout" class="button">Выйти</a></td>
-        </tr>
-        </tbody>
-    </table>
-</header>
+<ul th:replace="~{fragments :: links_to_lists_of_employees}"></ul>
+<header th:replace="~{fragments :: users_header}"></header>
 <main>
     <h2 style="text-align: center">Мои данные</h2>
     <table style="border: 0; margin: auto">

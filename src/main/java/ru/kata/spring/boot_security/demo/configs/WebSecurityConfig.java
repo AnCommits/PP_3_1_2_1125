@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/manufacture/phones/master/**")
                     .access("hasAuthority('PHONE_MANUFACTURER') and hasAuthority('MASTER')")
-                .antMatchers("/manufacture/phones/**").hasAuthority("TV_MANUFACTURER")
+                .antMatchers("/manufacture/phones/**").hasAuthority("PHONE_MANUFACTURER")
 
                 .antMatchers("manufacture/**").hasAnyAuthority("TV_MANUFACTURER", "PHONE_MANUFACTURER")
 
