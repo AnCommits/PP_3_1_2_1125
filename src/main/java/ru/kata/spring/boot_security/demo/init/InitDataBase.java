@@ -31,9 +31,13 @@ public class InitDataBase {
         if (userService.countUsers() == 0) {
             initAdmin();
 
-            initTrainee();
-            initRepairer1();
-            initRepairer2();
+            initHead();
+
+            initManufactureBoss();
+
+            initTvManufactureMaster();
+            initPhoneManufactureMaster();
+            initRepairMaster();
 
             initTvManufacturer1();
             initTvManufacturer2();
@@ -41,13 +45,10 @@ public class InitDataBase {
             initPhoneManufacturer1();
             initPhoneManufacturer2();
 
-            initTvManufactureMaster();
-            initPhoneManufactureMaster();
+            initRepairer1();
+            initRepairer2();
 
-            initRepairMaster();
-
-            initManufactureBoss();
-            initHead();
+            initTrainee();
         }
     }
 

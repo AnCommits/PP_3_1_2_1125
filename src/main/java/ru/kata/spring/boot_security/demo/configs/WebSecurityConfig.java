@@ -27,20 +27,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        final String boss = """
+                hasAuthority('MASTER')
+                and hasAuthority('TV_MANUFACTURER')
+                and hasAuthority('PHONE_MANUFACTURER')
+                and hasAuthority('REPAIRER')""";
+        final String manufactureMaster = """
+                hasAuthority('MASTER')
+                and hasAuthority('TV_MANUFACTURER')
+                and hasAuthority('PHONE_MANUFACTURER')""";
+
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
-                .antMatchers("/user/**").hasAnyAuthority("USER")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/user/**").hasAuthority("USER")
+
+                .antMatchers("/headship/**").access(boss)
+
+                .antMatchers("/manufacture/master/**").access(manufactureMaster)
+
                 .antMatchers("/manufacture/tvs/master/**")
                     .access("hasAuthority('TV_MANUFACTURER') and hasAuthority('MASTER')")
                 .antMatchers("/manufacture/tvs/**").hasAuthority("TV_MANUFACTURER")
+
                 .antMatchers("/manufacture/phones/master/**")
                     .access("hasAuthority('PHONE_MANUFACTURER') and hasAuthority('MASTER')")
-                .antMatchers("/manufacture/phones/**").hasAuthority("PHONE_MANUFACTURER")
+                .antMatchers("/manufacture/phones/**").hasAuthority("TV_MANUFACTURER")
+
+                .antMatchers("manufacture/**").hasAnyAuthority("TV_MANUFACTURER", "PHONE_MANUFACTURER")
+
                 .antMatchers("/repair/master/**")
                     .access("hasAuthority('REPAIRER') and hasAuthority('MASTER')")
                 .antMatchers("/repair/**").hasAuthority("REPAIRER")
+
                 .antMatchers("/**").permitAll();
         http
                 .formLogin().loginPage("/login").permitAll()

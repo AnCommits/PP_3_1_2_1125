@@ -64,12 +64,6 @@ public class AdminControllers {
         if (emailError) {
             message.append(user.getEmail()).append(" уже зарегистрирован. Используйте другой е-мэйл.");
         }
-        if (user.getRoles().isEmpty()) {
-            if (!message.isEmpty()) {
-                message.append("\n");
-            }
-            message.append("Отметьте роли.");
-        }
         if (!message.isEmpty()) {
             userRepeatEdit = user;
             return "redirect:/admin/show-repeat-edit-user";
@@ -101,12 +95,6 @@ public class AdminControllers {
         boolean emailError = userFromDb != null;
         if (emailError) {
             message.append(user.getEmail()).append(" уже зарегистрирован. Используйте другой е-мэйл.");
-        }
-        if (user.getRoles().isEmpty()) {
-            if (!message.isEmpty()) {
-                message.append("\n");
-            }
-            message.append("Выберите роли.");
         }
         if (!message.isEmpty()) {
             userRepeatEdit = user;

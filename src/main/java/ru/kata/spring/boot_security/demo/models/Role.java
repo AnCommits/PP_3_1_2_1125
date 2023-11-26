@@ -6,8 +6,10 @@ import org.springframework.security.core.GrantedAuthority;
 import ru.kata.spring.boot_security.demo.constants.RolesType;
 
 import javax.persistence.*;
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Data
 @RequiredArgsConstructor

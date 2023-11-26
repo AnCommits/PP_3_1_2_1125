@@ -5,11 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-//import ru.kata.spring.boot_security.demo.helper.PositionsForView;
-//import ru.kata.spring.boot_security.demo.helper.RolesForView;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Data
@@ -86,35 +83,6 @@ public class User implements UserDetails {
         this.roles = roles;
         this.locked = locked;
     }
-
-//    public boolean hasRole(String role) {
-//        return roles.stream().anyMatch(r -> r.getName().equals(role));
-//    }
-
-//    public List<String> getRolesNames() {
-//        return roles.stream().map(Role::getName).toList();
-//    }
-
-    // todo delete
-
-//    public String getMainRole() {
-//        Optional<Role> main = roles.stream().max(Role.roleComparator);
-//        return main.isPresent() ? main.get().getName() : Role.allRolesTypes[0].name();
-//    }
-
-    // todo delete
-//    public String birthDateToString() {
-//        return birthDate != null
-//                ? new SimpleDateFormat("yyyy-MM-dd").format(birthDate.getTime())
-//                : "";
-//    }
-
-    // todo delete
-//    public String recordDateTimeToString() {
-//        return recordDateTime != null
-//                ? new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss").format(recordDateTime)
-//                : "";
-//    }
 
     @Override
     public String toString() {
