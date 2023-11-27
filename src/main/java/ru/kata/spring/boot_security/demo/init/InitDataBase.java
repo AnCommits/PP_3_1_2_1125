@@ -24,7 +24,7 @@ public class InitDataBase {
     }
 
     /**
-     * Method creates and puts in the table an admin in case there are no entries in the table.
+     * Method creates and puts an admin in the table in case the table is empty.
      */
     @PostConstruct
     public void initUsers() {

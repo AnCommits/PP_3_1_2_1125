@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.dao;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
@@ -59,12 +60,13 @@ public class UserDaoImp implements UserDao {
     @Override
     public User getUserByEmail(String email) {
         logger.info("getUserByEmail " + email);
-        String hql = "SELECT u FROM User u left join fetch u.roles WHERE u.email =:email";
+        String hql = "FROM User u WHERE u.email =:email";
         TypedQuery<User> query = entityManager.createQuery(hql, User.class);
         query.setParameter("email", email);
         User user = null;
         try {
             user = query.getSingleResult();
+            Hibernate.initialize(user.getRoles());
         } catch (Exception e) {
             logger.info("getUserByEmail: " + e.getMessage() + " " + email);
         }
