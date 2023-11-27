@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
 import java.util.Date;
@@ -38,6 +39,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
+    }
+
+    @Override
+    public List<User> getUsersByRoles(List<Role> roles) {
+        return userDao.getUsersByRoles(roles);
     }
 
     @Override

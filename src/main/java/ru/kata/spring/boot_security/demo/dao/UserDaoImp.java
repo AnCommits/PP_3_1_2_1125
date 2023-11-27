@@ -1,10 +1,12 @@
 package ru.kata.spring.boot_security.demo.dao;
 
 import org.springframework.stereotype.Repository;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Logger;
@@ -35,6 +37,23 @@ public class UserDaoImp implements UserDao {
         String hql = "FROM User";
         TypedQuery<User> query = entityManager.createQuery(hql, User.class);
         return query.getResultList();
+    }
+
+    @Override
+    public List<User> getUsersByRoles(List<Role> roles) {
+        String sql = "select * from users where id in " +
+                "(select user_id from user_role where role_id in " +
+                "(select id from roles where name in (:name)))";
+        Query query = entityManager.createNativeQuery(sql, User.class);
+        List<String> ps = roles.stream().map(Role::getName).toList();
+        query.setParameter("name", ps);
+        List<User> users = null;
+        try {
+            users = query.getResultList();
+        } catch (Exception e) {
+            logger.info("getUsersByRoles: " + e.getMessage());
+        }
+        return users;
     }
 
     @Override

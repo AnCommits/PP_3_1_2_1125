@@ -11,7 +11,6 @@
     </style>
 </head>
 <body>
-<ul th:replace="~{fragments :: links_to_lists_of_employees}"></ul>
 <header th:replace="~{fragments :: users_header}"></header>
 <main>
     <h2 style="text-align: center">Мои данные</h2>
@@ -43,6 +42,7 @@
         </tr>
         </tbody>
     </table>
+    <ul th:replace="~{fragments :: links_to_lists_of_employees}"></ul>
 </main>
 </body>
 </html>
