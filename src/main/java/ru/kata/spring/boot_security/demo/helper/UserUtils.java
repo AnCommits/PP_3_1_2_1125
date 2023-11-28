@@ -31,10 +31,12 @@ public class UserUtils {
     }
 
     public static void setRoleFields(User user) {
-        user.setFirstRole(user.getRoles().isEmpty() ? "-" : user.getRoles().get(0).getName());
-        user.setOtherRoles(user.getRoles().isEmpty()
+        List<Role> roles = new ArrayList<>(user.getRoles());
+        roles.sort(Role.roleComparator);
+        user.setFirstRole(roles.isEmpty() ? "-" : roles.get(0).getName());
+        user.setOtherRoles(roles.isEmpty()
                 ? new ArrayList<>()
-                : user.getRoles().stream().skip(1).map(Role::getName).toList());
+                : roles.stream().skip(1).map(Role::getName).toList());
     }
 
     public static void setAdminField(User user) {

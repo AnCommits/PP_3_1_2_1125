@@ -73,7 +73,7 @@ public class AdminControllers {
         }
         user.setPassword(user.getPassword().isEmpty() ? pw : passwordEncoder.encode(user.getPassword()));
         if (user.isAdmin()) {
-            user.getRoles().add(0, new Role("ADMIN"));
+            user.getRoles().add(new Role("ADMIN"));
         }
         userService.updateUser(user);
         userRepeatEdit = null;

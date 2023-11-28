@@ -6,10 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import ru.kata.spring.boot_security.demo.constants.RolesType;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @RequiredArgsConstructor
@@ -32,16 +29,23 @@ public class Role implements GrantedAuthority {
 
     public void setName(String name) {
         String nameInUpperCase = name.toUpperCase();
-        List<String> allRolesNames = Arrays.stream(RolesType.values()).map(Enum::name).toList();
-        this.name = allRolesNames.contains(nameInUpperCase)
+        this.name = RolesType.allRolesNames.contains(nameInUpperCase)
                 ? nameInUpperCase
-                : allRolesNames.get(allRolesNames.size() - 1);
+                : RolesType.allRolesNames.get(RolesType.allRolesNames.size() - 1);
     }
 
     @Override
     public String getAuthority() {
         return name;
     }
+
+    public static Comparator<Role> roleComparator = new Comparator<Role>() {
+        @Override
+        public int compare(Role o1, Role o2) {
+            return RolesType.allRolesNames.lastIndexOf(o1.getName()) -
+                    RolesType.allRolesNames.lastIndexOf(o2.getName());
+        }
+    };
 
     @Override
     public boolean equals(Object o) {

@@ -7,10 +7,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class InitDataBase {
@@ -53,7 +50,7 @@ public class InitDataBase {
     }
 
     public void initAdmin() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new LinkedHashSet<>();
         roles.add(new Role("ADMIN"));
         roles.add(new Role("USER"));
 
@@ -64,7 +61,7 @@ public class InitDataBase {
     }
 
     public void initTrainee() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("USER"));
 
         User user = new User("Антон", "Антонов", "ученик",
@@ -74,7 +71,7 @@ public class InitDataBase {
     }
 
     public void initRepairer1() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
 
@@ -86,7 +83,7 @@ public class InitDataBase {
     }
 
     public void initRepairer2() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
 
@@ -98,7 +95,7 @@ public class InitDataBase {
     }
 
     public void initTvManufacturer1() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("USER"));
 
@@ -110,7 +107,7 @@ public class InitDataBase {
     }
 
     public void initTvManufacturer2() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("USER"));
 
@@ -122,7 +119,7 @@ public class InitDataBase {
     }
 
     public void initPhoneManufacturer1() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
 
@@ -134,7 +131,7 @@ public class InitDataBase {
     }
 
     public void initPhoneManufacturer2() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
 
@@ -146,7 +143,7 @@ public class InitDataBase {
     }
 
     public void initTvManufactureMaster() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("MASTER"));
         roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("USER"));
@@ -159,7 +156,7 @@ public class InitDataBase {
     }
 
     public void initPhoneManufactureMaster() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("MASTER"));
         roles.add(new Role("PHONE_MANUFACTURER"));
         roles.add(new Role("USER"));
@@ -172,7 +169,7 @@ public class InitDataBase {
     }
 
     public void initRepairMaster() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("MASTER"));
         roles.add(new Role("REPAIRER"));
         roles.add(new Role("USER"));
@@ -185,7 +182,7 @@ public class InitDataBase {
     }
 
     public void initManufactureBoss() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("MASTER"));
         roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("PHONE_MANUFACTURER"));
@@ -199,7 +196,7 @@ public class InitDataBase {
     }
 
     public void initHead() {
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(new Role("MASTER"));
         roles.add(new Role("TV_MANUFACTURER"));
         roles.add(new Role("PHONE_MANUFACTURER"));

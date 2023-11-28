@@ -52,13 +52,11 @@ public class User implements UserDetails {
     @Transient
     private String recordDateTimeAsString;
 
-    // ToDo - Which to use - Set or List? List keeps the order in view. Set keeps uniqueness.
-    // todo   LinkedHashSet doesn't work.
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    private Set<Role> roles;
 
     // for view
     @Transient
@@ -75,7 +73,7 @@ public class User implements UserDetails {
     private boolean admin;
 
     public User(String firstName, String lastName, String position, String email, String password,
-                Calendar birthDate, List<Role> roles, boolean locked) {
+                Calendar birthDate, Set<Role> roles, boolean locked) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
