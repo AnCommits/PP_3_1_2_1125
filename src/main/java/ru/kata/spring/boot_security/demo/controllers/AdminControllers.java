@@ -71,14 +71,13 @@ public class AdminControllers {
             userRepeatEdit = user;
             return "redirect:/admin/show-repeat-edit-user";
         }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(user.getPassword().isEmpty() ? pw : passwordEncoder.encode(user.getPassword()));
         if (user.isAdmin()) {
             user.getRoles().add(0, new Role("ADMIN"));
         }
-        String s = pw;
         userService.updateUser(user);
         userRepeatEdit = null;
+        pw = null;
         return "redirect:/admin";
     }
 

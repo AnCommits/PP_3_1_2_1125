@@ -13,25 +13,6 @@
             text-align: center;
         }
     </style>
-    <script type="text/javascript">
-        function password_button() {
-            const bt_pw_new = document.getElementById("bt_pw_new");
-            const bt_pw_old = document.getElementById("bt_pw_old");
-            const pw_area = document.getElementById("pw_area");
-            const pw_in_1 = document.getElementById("pw_in_1");
-            document.getElementById("pw_in_1").value = '';
-            document.getElementById("pw_in_1").value = '';
-            if (pw_area.hidden === false) {
-                pw_area.hidden = true;
-                bt_pw_new.style.display = 'inline-block';
-                bt_pw_old.style.display = 'none';
-            } else {
-                pw_area.hidden = false;
-                bt_pw_new.style.display = 'none';
-                bt_pw_old.style.display = 'inline-block';
-            }
-        }
-    </script>
 </head>
 <body>
 <header th:replace="~{admin/admin-blocks :: admin_header}"></header>
@@ -40,9 +21,6 @@
 
     <form th:action="'/admin/' + (${user.id == 0} ? 'save' : 'edit') + '-user'"
           th:object="${user}" th:method="${user.id == 0} ? 'post' : 'put'">
-        <!--        <table th:replace="~{admin/admin-blocks :: edit_user_table}"></table>-->
-
-
         <table th:fragment="edit_user_table" style="margin: auto">
             <tbody>
             <tr>
@@ -76,19 +54,16 @@
                             <td style="text-align: center">Дата рождения</td>
                             <td style="text-align: center; width: 260px">Роли</td>
                             <td style="text-align: center; vertical-align: top" rowspan="2">
-                                <div>Пароль*</div>
-                                <div id="pw_area" th:hidden="${user.id != 0}">
-                                    <div><input id="pw_in_1" type="password" minlength="2" size="24"
-                                                th:field="${user.password}"></div>
-                                    <div>Пароль еще раз*</div>
-                                    <div><input type="password" size="24" disabled="disabled"></div>
+                                <div th:text="'Пароль' + (${user.id == 0} ? '*' : '')"></div>
+                                <div th:text="${user.id == 0} ? '' : 'Можно не заполнять'"></div>
+                                <div th:switch="${user.id == 0}">
+                                    <input th:case="true" type="password" size="24" minlength="2" required
+                                           th:field="${user.password}">
+                                    <input th:case="false" type="password" size="24" minlength="2"
+                                           placeholder="Прежний пароль" th:field="${user.password}">
                                 </div>
-                                <input onclick="password_button()" id="bt_pw_new" type="button" class="button"
-                                       value="Установить новый пароль"
-                                       style="display: inline-block; margin: 8px" th:if="${user.id != 0}">
-                                <input onclick="password_button()" id="bt_pw_old" type="button" class="button"
-                                       value="Оставить прежний пароль"
-                                       style="display: none; margin: 8px" th:if="${user.id != 0}">
+                                <!--<div>Пароль еще раз*</div>-->
+                                <!--<div><input type="password" size="24" disabled="disabled"></div>-->
                             </td>
                         </tr>
                         <tr>
@@ -111,8 +86,6 @@
             </tr>
             </tbody>
         </table>
-
-
         <input type="text" hidden="hidden" th:field="${user.id}">
         <input type="checkbox" hidden="hidden" th:field="${user.locked}">
         <table style="border: none; margin: auto; padding-top: 8px">
