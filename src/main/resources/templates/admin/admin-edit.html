@@ -19,7 +19,8 @@
 <main>
     <h2 style="text-align: center" th:text="${title2}"></h2>
 
-    <form action="/admin/save-user" th:object="${user}" th:method="${user.id == 0} ? 'post' : 'put'">
+    <form th:action="'/admin/' + (${user.id == 0} ? 'save' : 'edit') + '-user'"
+          th:object="${user}" th:method="${user.id == 0} ? 'post' : 'put'">
         <table th:replace="~{admin/admin-blocks :: edit_user_table}"></table>
         <input type="text" hidden="hidden" th:field="${user.id}">
         <input type="checkbox" hidden="hidden" th:field="${user.locked}">

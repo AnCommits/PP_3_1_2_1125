@@ -4,6 +4,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import ru.kata.spring.boot_security.demo.successHandlerChain.SuccessHandler;
+import ru.kata.spring.boot_security.demo.successHandlerChain.SuccessHandler1;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,45 +14,13 @@ import java.util.Set;
 
 @Component
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
-        if (roles.contains("ADMIN")) {
-            httpServletResponse.sendRedirect("/admin");
-        } else if (roles.contains("MASTER")) {
-            if (roles.contains("TV_MANUFACTURER")) {
-                if (roles.contains("PHONE_MANUFACTURER")) {
-                    if (roles.contains("REPAIRER")) {
-                        httpServletResponse.sendRedirect("/headship");
-                    } else {
-                        httpServletResponse.sendRedirect("/manufacture/master");
-                    }
-                } else {
-                    httpServletResponse.sendRedirect("/manufacture/tvs/master");
-                }
-            } else if (roles.contains("PHONE_MANUFACTURER")) {
-                httpServletResponse.sendRedirect("/manufacture/phones/master");
-            } else if (roles.contains("REPAIRER")) {
-                httpServletResponse.sendRedirect("/repair/master");
-            } else {
-                httpServletResponse.sendRedirect("/");
-            }
-        } else if (roles.contains("TV_MANUFACTURER")) {
-            httpServletResponse.sendRedirect("/manufacture/tvs");
-        } else if (roles.contains("PHONE_MANUFACTURER")) {
-            httpServletResponse.sendRedirect("/manufacture/phones");
-        } else if (roles.contains("REPAIRER")) {
-            httpServletResponse.sendRedirect("/repair");
-        } else {
-            if (roles.contains("USER")) {
-                httpServletResponse.sendRedirect("/user");
-            } else {
-                httpServletResponse.sendRedirect("/");
-            }
-        }
+        SuccessHandler successHandler1 = new SuccessHandler1(roles);
+        httpServletResponse.sendRedirect(successHandler1.getUrl());
     }
 }

@@ -52,7 +52,9 @@ public class User implements UserDetails {
     @Transient
     private String recordDateTimeAsString;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    // ToDo - Which to use - Set or List? List keeps the order in view. Set keeps uniqueness.
+    // todo   LinkedHashSet doesn't work.
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

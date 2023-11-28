@@ -54,7 +54,7 @@ public class AdminControllers {
         return "admin/admin-edit";
     }
 
-    @PutMapping("/save-user")
+    @PutMapping("/edit-user")
     public String updateUser(@ModelAttribute("user") User user) {
         message = new StringBuilder();
         long idFromForm = user.getId();
@@ -68,7 +68,6 @@ public class AdminControllers {
             userRepeatEdit = user;
             return "redirect:/admin/show-repeat-edit-user";
         }
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.isAdmin()) {
             user.getRoles().add(0, new Role("ADMIN"));

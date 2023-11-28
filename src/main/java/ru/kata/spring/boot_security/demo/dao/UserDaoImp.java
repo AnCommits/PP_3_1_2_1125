@@ -42,12 +42,16 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public List<User> getUsersByRoles(List<Role> roles) {
+//        String hql = "select u from User u where u.roles in (:roles)";
+//        TypedQuery<User> query = entityManager.createQuery(hql, User.class);
+//        List<String> lr = roles.stream().map(Role::getName).toList();
+//        query.setParameter("roles", lr);
         String sql = "select * from users where id in " +
                 "(select user_id from user_role where role_id in " +
                 "(select id from roles where name in (:name)))";
         Query query = entityManager.createNativeQuery(sql, User.class);
-        List<String> ps = roles.stream().map(Role::getName).toList();
-        query.setParameter("name", ps);
+        List<String> rs = roles.stream().map(Role::getName).toList();
+        query.setParameter("name", rs);
         List<User> users = null;
         try {
             users = query.getResultList();

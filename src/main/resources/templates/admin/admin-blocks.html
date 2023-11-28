@@ -121,12 +121,13 @@
                         </div>
                         <input type="checkbox" hidden="hidden" th:field="${user.admin}">
                     </td>
-                    <td>
+                    <td style="text-align: center; vertical-align: top">
+                        <input type="password" minlength="2" size="24"
+                               autocomplete="current-password" required
+                               th:field="${user.password}">
                         <ul style="list-style-type: none">
-                            <li><input type="password" minlength="2" size="24" required
-                                       th:field="${user.password}"></li>
-                            <li>Пароль еще раз*</li>
-                            <li><input type="password" size="24" disabled="disabled"></li>
+<!--                            <li>Пароль еще раз*</li>-->
+<!--                            <li><input type="password" size="24"></li>-->
                         </ul>
                     </td>
                 </tr>
