@@ -106,7 +106,13 @@
                 <tr>
                     <td>Дата рождения</td>
                     <td style="text-align: center; width: 260px">Роли</td>
-                    <td style="text-align: center">Пароль*</td>
+                    <td style="text-align: center; vertical-align: top" rowspan="2" th:if="${user.id == 0}">
+                        <div>Пароль*</div>
+                        <div><input type="password" minlength="2" size="24" required
+                            th:field="${user.password}"></div>
+                        <div><input type="password" size="24" disabled="disabled"></div>
+                        <div>Пароль еще раз*</div>
+                    </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top">
@@ -120,15 +126,6 @@
                                    th:field="*{roles}">
                         </div>
                         <input type="checkbox" hidden="hidden" th:field="${user.admin}">
-                    </td>
-                    <td style="text-align: center; vertical-align: top">
-                        <input type="password" minlength="2" size="24"
-                               autocomplete="current-password" required
-                               th:field="${user.password}">
-                        <ul style="list-style-type: none">
-<!--                            <li>Пароль еще раз*</li>-->
-<!--                            <li><input type="password" size="24"></li>-->
-                        </ul>
                     </td>
                 </tr>
                 </tbody>

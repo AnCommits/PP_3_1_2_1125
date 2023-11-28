@@ -18,6 +18,7 @@ public class AdminControllers {
     private final UserService userService;
 
     private User userRepeatEdit;
+    private String pw;
     private StringBuilder message;
 
     public AdminControllers(PasswordEncoder passwordEncoder, UserService userService) {
@@ -37,6 +38,8 @@ public class AdminControllers {
     public String showEditUser(@RequestParam long id, ModelMap model) {
         User user = userService.getUserById(id);
         UserUtils.setAdminField(user);
+        pw = user.getPassword();
+        user.setPassword("");
         model.addAttribute("aRoles", UserUtils.allRolesWithoutAdmin());
         model.addAttribute("user", user);
         model.addAttribute("title", "Страница администратора");
@@ -68,10 +71,12 @@ public class AdminControllers {
             userRepeatEdit = user;
             return "redirect:/admin/show-repeat-edit-user";
         }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.isAdmin()) {
             user.getRoles().add(0, new Role("ADMIN"));
         }
+        String s = pw;
         userService.updateUser(user);
         userRepeatEdit = null;
         return "redirect:/admin";
