@@ -7,21 +7,21 @@ import java.util.Set;
 
 @AllArgsConstructor
 @Getter
-public class successHandlerNotMaster implements SuccessHandler {
+public class SuccessHandlerSupervisor implements SuccessHandler {
 
     private Set<String> roles;
 
     @Override
     public String getUrl() {
         if (roles.contains("TV_MANUFACTURER")) {
-            return "/manufacture/tvs";
+            return "/manufacture/tvs/master";
         }
         if (roles.contains("PHONE_MANUFACTURER")) {
-            return "/manufacture/phones";
+            return "/manufacture/phones/master";
         }
         if (roles.contains("REPAIRER")) {
-            return "/repair";
+            return "/repair/master";
         }
-        return new successHandlerUser(roles).getUrl();
+        return new SuccessHandlerUser(roles).getUrl();
     }
 }

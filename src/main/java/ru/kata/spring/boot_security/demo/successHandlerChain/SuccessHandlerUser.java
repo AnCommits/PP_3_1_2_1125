@@ -7,14 +7,12 @@ import java.util.Set;
 
 @AllArgsConstructor
 @Getter
-public class successHandlerNotAdmin implements SuccessHandler {
+public class SuccessHandlerUser implements SuccessHandler {
 
     private Set<String> roles;
 
     @Override
     public String getUrl() {
-        return roles.contains("MASTER")
-                ? new successHandlerMaster(roles).getUrl()
-                : new successHandlerNotMaster(roles).getUrl();
+        return roles.contains("USER") ? "/user" : "/";
     }
 }

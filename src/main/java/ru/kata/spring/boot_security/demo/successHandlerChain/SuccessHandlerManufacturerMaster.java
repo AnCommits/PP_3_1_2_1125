@@ -7,7 +7,7 @@ import java.util.Set;
 
 @AllArgsConstructor
 @Getter
-public class SuccessHandlerNotHeadship implements SuccessHandler {
+public class SuccessHandlerManufacturerMaster implements SuccessHandler {
 
     private Set<String> roles;
 
@@ -15,6 +15,6 @@ public class SuccessHandlerNotHeadship implements SuccessHandler {
     public String getUrl() {
         return SuccessHandler.containsTvAndPhoneManufacturer(roles)
                 ? "/manufacture/master"
-                : new SuccessHandlerNotManufacturerMaster(roles).getUrl();
+                : new SuccessHandlerSupervisor(roles).getUrl();
     }
 }
