@@ -16,16 +16,24 @@
             <td style="text-align: center; font-weight: bold; font-size: larger; width: 100%; border: 1px solid">
                 Главная страница
             </td>
-            <span sec:authorize="isAnonymous()">
-                <td><a href="/login" class="button">Войти</a></td>
-            </span>
-            <span sec:authorize="isAuthenticated()">
-                <td sec:authorize="hasAuthority('ADMIN')">
-                    <a href="/admin" class="button">Администрирование</a>
-                </td>
-                <td><a href="/user" class="button">Моя&nbsp;страница</a></td>
-                <td><a href="/logout" class="button">Выйти</a></td>
-            </span>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <a href="/admin" class="button">Администрирование</a>
+            </td>
+            <td sec:authorize="hasAnyAuthority('TV_MANUFACTURER', 'PHONE_MANUFACTURER')">
+                <a href="/manufacture" class="button">Сборочный&nbsp;цех</a>
+            </td>
+            <td sec:authorize="hasAuthority('TV_MANUFACTURER')">
+                <a href="/manufacture/tvs" class="button">Отдел&nbsp;сборки&nbsp;ТВ</a>
+            </td>
+            <td sec:authorize="hasAuthority('PHONE_MANUFACTURER')">
+                <a href="/manufacture/phones" class="button">Отдел&nbsp;сборки&nbsp;телефонов</a>
+            </td>
+            <td sec:authorize="hasAuthority('REPAIRER')">
+                <a href="/repair" class="button">Ремонтный&nbsp;отдел</a>
+            </td>
+            <td sec:authorize="hasAuthority('USER')"><a href="/user" class="button">Моя&nbsp;страница</a></td>
+            <td sec:authorize="isAuthenticated()"><a href="/logout" class="button">Выйти</a></td>
+            <td sec:authorize="isAnonymous()"><a href="/login" class="button">Войти</a></td>
         </tr>
         </tbody>
     </table>
